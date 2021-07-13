@@ -1,0 +1,51 @@
+<%- include('./shared/header'); %>
+<main class="container">
+  <div class="row justify-content-center home">
+    <div class="col-md-6">
+      <form class="home__form">
+        <% if (images.length > 0) { %>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+              <select id="image" class="form-select home__form-select home__form-image" aria-label="Select an image to resize" aria-describedby="imageHelp">
+                <% images.forEach(image => { %>
+                  <option value="<%= image.value %>"><%= image.key %></option>
+                <% }) %>
+              </select>
+            </div>
+        <% } %>
+        <% if (widths.length > 0) { %>
+          <div class="mb-3">
+            <label for="width" class="form-label">Width</label>
+              <select id="width" class="form-select home__form-select home__form-width" aria-label="Default select example" aria-describedby="widthHelp">
+                <% widths.forEach(width => { %>
+                  <option value="<%= width.value %>"><%= width.key %></option>
+                <% }) %>
+              </select>
+          </div>
+        <% } %>
+        <% if (formats.length > 0) { %>
+          <div class="mb-3">
+            <label for="height" class="form-label">Height</label>
+            <select id="height" class="form-select home__form-select home__form-height" aria-label="Default select example" aria-describedby="heightHelp">
+              <% heights.forEach(height => { %>
+                <option value="<%= height.value %>"><%= height.key %></option>
+              <% }) %>
+            </select>
+          </div>
+        <% } %>
+        <% if (formats.length > 0) { %>
+          <div class="mb-3">
+            <label for="format" class="form-label">Format</label>
+            <select id="format" class="form-select home__form-select home__form-format" aria-label="Default select example" aria-describedby="formatHelp">
+              <% formats.forEach(format => { %>
+                <option value="<%= format %>"><%= format %></option>
+              <% }) %>
+            </select>
+          </div>
+        <% } %>
+        <button type="submit" class="home__form-button">Submit</button>
+      </form>
+    </div>
+  </div>
+</main>
+<%- include('./shared/footer'); %>

@@ -1,0 +1,41 @@
+.error-404 {
+  min-height: calc(100vh - 183px);
+
+  &__content {
+    padding-bottom: 50px;
+    padding-top: 50px;
+  }
+
+  &__title {
+    font-size: 5rem;
+    font-weight: $font-bold;
+    margin: 0 0 20px 0;
+    text-align: center;
+  }
+
+  &__description {
+    font-size: 1.5rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__button {
+    background-color: $golden;
+    border: 1px solid $golden;
+    color: $dark-blue;
+    display: block;
+    line-height: 40px;
+    margin: 30px auto 0 auto;
+    outline: none;
+    padding: 0 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.25s ease-in-out;
+    width: 210px;
+
+    &:hover {
+      color: $golden;
+      background-color: transparent;
+    }
+  }
+}

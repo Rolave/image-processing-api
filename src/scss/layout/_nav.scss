@@ -1,0 +1,153 @@
+@use '../abstracts' as *;
+
+.header {
+  &.scrolled {
+    .menu-top {
+      padding: 0;
+
+      li {
+        a {
+          line-height: 50px;
+
+          &:focus {
+            background-color: transparent;
+          }
+
+          &:after {
+          }
+        }
+      }
+    }
+  }
+}
+
+.menu-top {
+  display: block;
+  font-size: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+
+  @include medium {
+    margin: 0;
+    padding: 0;
+    width: auto;
+  }
+
+  .active {
+    background-color: transparent;
+
+    a {
+      color: rgba($golden, 0.5);
+
+      &:after {
+        background-color: rgba($golden, 0.5);
+      }
+    }
+  }
+
+  li {
+    float: none;
+    font-family: 'Crimson Regular', serif;
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+
+    @include medium {
+      display: block;
+    }
+
+    a {
+      background-color: transparent;
+      color: $golden;
+      font-size: 12px;
+      margin: 0;
+      padding: 4px 20px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.25s ease-in-out;
+
+      @include medium {
+        font-size: 12px;
+        line-height: 30px;
+      }
+
+      @include large {
+        font-size: 10px;
+        padding: 0 10px;
+
+        &:after {
+          display: none;
+        }
+      }
+
+      @include extra-large {
+        font-size: 10px;
+        padding: 0 5px;
+      }
+
+      &::after {
+        background-color: transparent;
+        content: '';
+        display: block;
+        height: 1px;
+        top: -1px;
+        transition: all 0.25s ease-in-out;
+        width: 100%;
+      }
+
+      &:hover {
+        background-color: transparent;
+
+        &:after {
+          background-color: $golden;
+        }
+      }
+    }
+
+    &.dropdown {
+      a:focus {
+        background-color: transparent;
+      }
+
+      &.open {
+        a:focus {
+          background-color: white;
+        }
+
+        .dropdown-menu {
+          background-color: transparent;
+          border: 0;
+          border-radius: 0;
+          float: none;
+          margin: 0;
+          padding: 0;
+          right: 0;
+
+          li {
+            background-color: transparent;
+            display: block;
+
+            a {
+              background-color: rgba(white, 0.75);
+              display: block;
+              font-family: 'Montserrat';
+              font-weight: 300;
+              letter-spacing: 0.05em;
+              line-height: 40px;
+              padding: 0;
+              text-align: center;
+
+              &:hover {
+                background-color: $light-gray;
+                color: $golden;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

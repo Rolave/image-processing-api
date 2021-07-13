@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  min-height: 100%;
+}
+
+body {
+  background-color: $dark-blue;
+  font-family: $font-text;
+  font-size: 14px;
+  font-weight: $font-regular;
+  color: $golden;
+  min-height: 100%;
+}

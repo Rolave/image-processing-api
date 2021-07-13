@@ -1,0 +1,57 @@
+.home {
+  min-height: calc(100vh - 183px);
+
+  &__form {
+    padding-bottom: 50px;
+    padding-top: 50px;
+
+    &-select {
+      border-radius: 0;
+      text-transform: capitalize;
+    }
+
+    &-button {
+      background-color: $golden;
+      border: 1px solid $golden;
+      color: $dark-blue;
+      display: block;
+      line-height: 40px;
+      margin: 30px auto 0 auto;
+      outline: none;
+      padding: 0 30px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.25s ease-in-out;
+      width: 100%;
+
+      &:hover {
+        color: $golden;
+        background-color: transparent;
+      }
+    }
+
+    .msg-response {
+      border: 1px solid $golden;
+      margin: 20px 0 0 0;
+      padding: 20px;
+
+      a {
+        color: white;
+        text-decoration: none;
+        transition: all .2s ease-in-out;
+
+        &:focus, &:hover {
+          color: $golden;
+        }
+      }
+
+      &--error {
+        border-color: rgba(red, 0.5);
+      }
+
+      &--success {
+        border-color: rgba(green, 0.5);
+      }
+    }
+  }
+}
