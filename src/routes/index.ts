@@ -3,11 +3,13 @@ import { cacheMiddleware, ImgNames, ImgSizes, ImgFormats } from '../utilities';
 
 const routes = express.Router();
 
-// routes.use((req, _res, next) => {
-//   console.log('Method:', req.method); // eslint-disable-line no-console
-//   console.log('Query:', req.query); // eslint-disable-line no-console
-//   next();
-// });
+routes.use((req, _res, next) => {
+  /* eslint-disable no-undef, no-console */
+  console.log('Method:', req.method);
+  console.log('Query:', req.query);
+  /* eslint-enable no-undef, no-console */
+  next();
+});
 
 routes.get('/', (_req, res) => {
   res.render('index', {

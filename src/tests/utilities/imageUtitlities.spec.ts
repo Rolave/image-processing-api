@@ -160,6 +160,7 @@ describe('Test thumbnail image create', () => {
       result: `${validImgNames[0]}.${validImgFormats[0]}`,
     };
 
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     expect(imgPath).toEqual(imgPathExpected as any);
   });
 

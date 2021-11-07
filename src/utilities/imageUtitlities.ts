@@ -39,6 +39,7 @@ export const imgExists = async (imgPath: string): Promise<boolean> => {
 };
 
 export const isImgValidName = (name: string): boolean =>
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   Object.values(ImgNames).includes(name as any);
 
 export const isImgFullSize = (width: number, height: number): boolean =>
