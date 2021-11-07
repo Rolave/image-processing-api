@@ -40,24 +40,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var cacheUtilities_1 = __importDefault(require("../utilities/cacheUtilities"));
-var imageUtitlities_1 = __importDefault(require("../utilities/imageUtitlities"));
+var utilities_1 = require("../utilities");
 var routes = express_1.default.Router();
-routes.use(function (req, res, next) {
+routes.use(function (req, _res, next) {
     console.log('Method:', req.method);
     console.log('Query:', req.query);
     next();
 });
-routes.get('/', function (req, res) {
-    console.log(Object.values(imageUtitlities_1.default.ImgSizes));
+routes.get('/', function (_req, res) {
     res.render('index', {
-        images: Object.entries(imageUtitlities_1.default.ImgNames)
+        images: Object.entries(utilities_1.ImgNames)
             .filter(function (item) { return item[0] != 'TEST'; })
             .map(function (item) { return ({
             key: item[0].toLowerCase().split('_').join(' '),
             value: item[1],
         }); }),
-        widths: Object.entries(imageUtitlities_1.default.ImgSizes)
+        widths: Object.entries(utilities_1.ImgSizes)
             .filter(function (item) { return item[0] != 'FULL_HEIGHT'; })
             .map(function (item) { return ({
             key: item[0] === 'FULL_WIDTH'
@@ -65,7 +63,7 @@ routes.get('/', function (req, res) {
                 : item[1],
             value: item[1],
         }); }),
-        heights: Object.entries(imageUtitlities_1.default.ImgSizes)
+        heights: Object.entries(utilities_1.ImgSizes)
             .filter(function (item) { return item[0] != 'FULL_WIDTH'; })
             .map(function (item) { return ({
             key: item[0] === 'FULL_HEIGHT'
@@ -73,23 +71,21 @@ routes.get('/', function (req, res) {
                 : item[1],
             value: item[1],
         }); }),
-        formats: Object.values(imageUtitlities_1.default.ImgFormats),
+        formats: Object.values(utilities_1.ImgFormats),
     });
 });
-routes.get('/images/', cacheUtilities_1.default(300), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, image, format, width, height, imgThumb;
+routes.get('/images/', (0, utilities_1.cacheMiddleware)(300), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, image, width, height, format, imageWidth, imageHeight, imageResponse;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.query, image = _a.image, format = _a.format;
-                width = parseInt(req.query.width);
-                height = parseInt(req.query.height);
-                return [4 /*yield*/, imageUtitlities_1.default.createImgThumb(image, width, height, format)];
+                _a = req.query, image = _a.image, width = _a.width, height = _a.height, format = _a.format;
+                imageWidth = parseInt(width, string);
+                imageHeight = parseInt(height);
+                return [4 /*yield*/, (0, utilities_1.createImgThumb)(image, imageWidth, imageHeight, format)];
             case 1:
-                imgThumb = _b.sent();
-                res.send({
-                    image: imgThumb,
-                });
+                imageResponse = _b.sent();
+                res.send(imageResponse);
                 return [2 /*return*/];
         }
     });

@@ -1,26 +1,24 @@
 import express from 'express';
-import cacheMiddleware from '../utilities/cacheUtilities';
-import imageUtitlities from '../utilities/imageUtitlities';
+import { cacheMiddleware, ImgNames, ImgSizes, ImgFormats } from '../utilities';
 
 const routes = express.Router();
 
-routes.use((req, res, next) => {
-  console.log('Method:', req.method);
-  console.log('Query:', req.query);
-  next();
-});
+// routes.use((req, _res, next) => {
+//   console.log('Method:', req.method); // eslint-disable-line no-console
+//   console.log('Query:', req.query); // eslint-disable-line no-console
+//   next();
+// });
 
-routes.get('/', (req, res) => {
-  console.log(Object.values(imageUtitlities.ImgSizes as object));
+routes.get('/', (_req, res) => {
   res.render('index', {
-    images: Object.entries(imageUtitlities.ImgNames)
-      .filter(item => item[0] != 'TEST')
+    images: Object.entries(ImgNames)
+      .filter(item => item[0] !== 'TEST')
       .map(item => ({
         key: item[0].toLowerCase().split('_').join(' '),
         value: item[1],
       })),
-    widths: Object.entries(imageUtitlities.ImgSizes)
-      .filter(item => item[0] != 'FULL_HEIGHT')
+    widths: Object.entries(ImgSizes)
+      .filter(item => item[0] !== 'FULL_HEIGHT')
       .map(item => ({
         key:
           item[0] === 'FULL_WIDTH'
@@ -28,8 +26,8 @@ routes.get('/', (req, res) => {
             : item[1],
         value: item[1],
       })),
-    heights: Object.entries(imageUtitlities.ImgSizes)
-      .filter(item => item[0] != 'FULL_WIDTH')
+    heights: Object.entries(ImgSizes)
+      .filter(item => item[0] !== 'FULL_WIDTH')
       .map(item => ({
         key:
           item[0] === 'FULL_HEIGHT'
@@ -37,24 +35,10 @@ routes.get('/', (req, res) => {
             : item[1],
         value: item[1],
       })),
-    formats: Object.values(imageUtitlities.ImgFormats),
+    formats: Object.values(ImgFormats),
   });
 });
 
-routes.get('/images/', cacheMiddleware(300), async (req, res) => {
-  const { image, format } = req.query;
-  const width = parseInt(req.query.width as string);
-  const height = parseInt(req.query.height as string);
-  const imgThumb = await imageUtitlities.createImgThumb(
-    image as string,
-    width as number,
-    height as number,
-    format as string
-  );
-
-  res.send({
-    image: imgThumb,
-  });
-});
+routes.get('/images/', cacheMiddleware(300));
 
 export default routes;

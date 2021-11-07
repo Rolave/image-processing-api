@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         form.insertAdjacentHTML(
           'beforeend',
           `<div class="msg-response msg-response--success"><a href="${
-            domain + data.image
-          }" target="_blank">${domain + data.image}</a></div>`
+            domain + data.result
+          }" target="_blank">${domain + data.result}</a></div>`
         );
       })
       .catch(error => {

@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createImgThumb = exports.getImgFileName = exports.getImgFormat = exports.isImgFullSize = exports.isImgValidName = exports.imgExists = exports.ImgFormats = exports.ImgSizes = exports.ImgNames = void 0;
 var path_1 = __importDefault(require("path"));
 var fs_1 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
@@ -51,7 +52,7 @@ var ImgNames;
     ImgNames["PALM_TUNNEL"] = "palmtunnel";
     ImgNames["SANTA_MONICA"] = "santamonica";
     ImgNames["TEST"] = "test";
-})(ImgNames || (ImgNames = {}));
+})(ImgNames = exports.ImgNames || (exports.ImgNames = {}));
 var ImgSizes;
 (function (ImgSizes) {
     ImgSizes["FULL_WIDTH"] = "1920";
@@ -62,12 +63,12 @@ var ImgSizes;
     ImgSizes["SMALL"] = "150";
     ImgSizes["EXTRA_SMALL"] = "100";
     ImgSizes["THUMBNAIL"] = "75";
-})(ImgSizes || (ImgSizes = {}));
+})(ImgSizes = exports.ImgSizes || (exports.ImgSizes = {}));
 var ImgFormats;
 (function (ImgFormats) {
     ImgFormats["JPG"] = "jpg";
     ImgFormats["PNG"] = "png";
-})(ImgFormats || (ImgFormats = {}));
+})(ImgFormats = exports.ImgFormats || (exports.ImgFormats = {}));
 var imgExists = function (imgPath) { return __awaiter(void 0, void 0, void 0, function () {
     var _a;
     return __generator(this, function (_b) {
@@ -85,63 +86,58 @@ var imgExists = function (imgPath) { return __awaiter(void 0, void 0, void 0, fu
         }
     });
 }); };
+exports.imgExists = imgExists;
 var isImgValidName = function (name) {
     return Object.values(ImgNames).includes(name);
 };
+exports.isImgValidName = isImgValidName;
 var isImgFullSize = function (width, height) {
     return width === parseInt(ImgSizes.FULL_WIDTH) &&
         height === parseInt(ImgSizes.FULL_HEIGHT);
 };
+exports.isImgFullSize = isImgFullSize;
 var getImgFormat = function (format) {
     return format === 'png' ? ImgFormats.PNG : ImgFormats.JPG;
 };
+exports.getImgFormat = getImgFormat;
 var getImgFileName = function (imgName, width, height, format) {
-    var imgValidName = isImgValidName(imgName)
+    var imgValidName = (0, exports.isImgValidName)(imgName)
         ? imgName
         : ImgNames.ENCENADA_PORT;
-    var imgFormat = getImgFormat(format);
+    var imgFormat = (0, exports.getImgFormat)(format);
     var fullsize = imgValidName + "." + imgFormat;
     var thumbnail = imgValidName + "-" + width + "-" + height + "." + imgFormat;
-    return isImgFullSize(width, height) ? fullsize : thumbnail;
+    return (0, exports.isImgFullSize)(width, height) ? fullsize : thumbnail;
 };
+exports.getImgFileName = getImgFileName;
 var getDefaultImgFile = function (imgName) {
-    return getImgFileName(imgName, parseInt(ImgSizes.FULL_WIDTH), parseInt(ImgSizes.FULL_HEIGHT), ImgFormats.JPG);
+    return (0, exports.getImgFileName)(imgName, parseInt(ImgSizes.FULL_WIDTH), parseInt(ImgSizes.FULL_HEIGHT), ImgFormats.JPG);
 };
 var createImgThumb = function (name, width, height, format) { return __awaiter(void 0, void 0, void 0, function () {
-    var input, output, outputPath, doesImgExists, error_1;
+    var input, image, outputPath, doesImgExists, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
                 input = "" + imagesPath + getDefaultImgFile(name);
-                output = getImgFileName(name, width, height, format);
-                outputPath = "" + imagesPath + output;
-                return [4 /*yield*/, imgExists(outputPath)];
+                image = (0, exports.getImgFileName)(name, width, height, format);
+                outputPath = "" + imagesPath + image;
+                return [4 /*yield*/, (0, exports.imgExists)(outputPath)];
             case 1:
                 doesImgExists = _a.sent();
                 if (!!doesImgExists) return [3 /*break*/, 3];
-                return [4 /*yield*/, sharp_1.default(input)
+                return [4 /*yield*/, (0, sharp_1.default)(input)
                         .resize(width, height, { fit: 'cover' })
                         .toFile(outputPath)];
             case 2:
                 _a.sent();
                 _a.label = 3;
-            case 3: return [2 /*return*/, output];
+            case 3: return [2 /*return*/, { result: image }];
             case 4:
                 error_1 = _a.sent();
-                return [2 /*return*/, error_1];
+                return [2 /*return*/, { result: "" + error_1 }];
             case 5: return [2 /*return*/];
         }
     });
 }); };
-exports.default = {
-    ImgNames: ImgNames,
-    ImgSizes: ImgSizes,
-    ImgFormats: ImgFormats,
-    imgExists: imgExists,
-    isImgValidName: isImgValidName,
-    isImgFullSize: isImgFullSize,
-    getImgFormat: getImgFormat,
-    getImgFileName: getImgFileName,
-    createImgThumb: createImgThumb,
-};
+exports.createImgThumb = createImgThumb;

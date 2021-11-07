@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
 var app_1 = __importDefault(require("../app"));
-var request = supertest_1.default(app_1.default);
+var request = (0, supertest_1.default)(app_1.default);
 describe('Test api endpoint responses', function () {
     it('should returns status code 200 when gets the api endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;

@@ -4,7 +4,7 @@ import sharp from 'sharp';
 
 const imagesPath = path.join(__dirname, '../../public/images/');
 
-enum ImgNames {
+export enum ImgNames {
   ENCENADA_PORT = 'encenadaport',
   FJORD = 'fjord',
   ICELAND_WATERFALL = 'icelandwaterfall',
@@ -13,7 +13,7 @@ enum ImgNames {
   TEST = 'test',
 }
 
-enum ImgSizes {
+export enum ImgSizes {
   FULL_WIDTH = '1920',
   FULL_HEIGHT = '1273',
   EXTRA_LARGE = '600',
@@ -24,12 +24,12 @@ enum ImgSizes {
   THUMBNAIL = '75',
 }
 
-enum ImgFormats {
+export enum ImgFormats {
   JPG = 'jpg',
   PNG = 'png',
 }
 
-const imgExists = async (imgPath: string): Promise<boolean> => {
+export const imgExists = async (imgPath: string): Promise<boolean> => {
   try {
     await fsPromises.access(imgPath);
     return true;
@@ -38,17 +38,17 @@ const imgExists = async (imgPath: string): Promise<boolean> => {
   }
 };
 
-const isImgValidName = (name: string): boolean =>
+export const isImgValidName = (name: string): boolean =>
   Object.values(ImgNames).includes(name as any);
 
-const isImgFullSize = (width: number, height: number): boolean =>
+export const isImgFullSize = (width: number, height: number): boolean =>
   width === parseInt(ImgSizes.FULL_WIDTH) &&
   height === parseInt(ImgSizes.FULL_HEIGHT);
 
-const getImgFormat = (format: string): string =>
+export const getImgFormat = (format: string): string =>
   format === 'png' ? ImgFormats.PNG : ImgFormats.JPG;
 
-const getImgFileName = (
+export const getImgFileName = (
   imgName: string,
   width: number,
   height: number,
@@ -72,16 +72,16 @@ const getDefaultImgFile = (imgName: string): string =>
     ImgFormats.JPG
   );
 
-const createImgThumb = async (
+export const createImgThumb = async (
   name: string,
   width: number,
   height: number,
   format: string
-): Promise<string> => {
+): Promise<{ result: string }> => {
   try {
     const input = `${imagesPath}${getDefaultImgFile(name)}`;
-    const output = getImgFileName(name, width, height, format);
-    const outputPath = `${imagesPath}${output}`;
+    const image = getImgFileName(name, width, height, format);
+    const outputPath = `${imagesPath}${image}`;
     const doesImgExists = await imgExists(outputPath);
 
     if (!doesImgExists) {
@@ -89,20 +89,9 @@ const createImgThumb = async (
         .resize(width, height, { fit: 'cover' })
         .toFile(outputPath);
     }
-    return output;
-  } catch (error) {
-    return error;
-  }
-};
 
-export default {
-  ImgNames,
-  ImgSizes,
-  ImgFormats,
-  imgExists,
-  isImgValidName,
-  isImgFullSize,
-  getImgFormat,
-  getImgFileName,
-  createImgThumb,
+    return { result: image };
+  } catch (error) {
+    return { result: `${error}` };
+  }
 };

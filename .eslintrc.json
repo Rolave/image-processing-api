@@ -1,33 +1,40 @@
 {
   "root": true,
   "plugins": [
+    "jasmine",
     "prettier"
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:jasmine/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": 2,
-    "no-use-before-define": [
+    "eqeqeq": "error",
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-var": "error",
+    "@typescript-eslint/explicit-module-boundary-types": [
       "error",
       {
-        "functions": true,
-        "classes": true
+          "allowTypedFunctionExpressions": true,
+          "allowHigherOrderFunctions": true
       }
-    ],
-    "no-var": "error",
-    "no-unused-vars": 2,
-    "no-undef": 2,
-    "prefer-const": "error"
+    ]
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "env": {
     "browser": true,
-    "node": true,
-    "es6": true
+    "commonjs": true,
+    "es2021": true,
+    "jasmine": true,
+    "node": true
   }
 }

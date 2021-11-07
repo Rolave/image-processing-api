@@ -1,25 +1,40 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import nodeCache from 'node-cache';
-import imageUtitlities from './imageUtitlities';
+import { getImgFileName, createImgThumb } from '.';
 
 const cache = new nodeCache();
-const cacheMiddleware =
-  (duration: number) => (req: Request, res: Response, next: NextFunction) => {
+const getkeyName = (
+  image: string,
+  width: string,
+  height: string,
+  format: string
+) => getImgFileName(image, parseInt(width), parseInt(height), format);
+
+export const cacheMiddleware =
+  (duration: number) =>
+  // eslint-disable-next-line
+  async (req: Request, res: Response) => {
     const { image, width, height, format } = req.query;
-    const key = imageUtitlities.getImgFileName(
+    const key = getkeyName(
       image as string,
-      parseInt(width as string),
-      parseInt(height as string),
+      width as string,
+      height as string,
       format as string
     );
     const cachedResponse = cache.get(key);
 
     if (cachedResponse) {
-      res.send({ image: cachedResponse });
+      res.status(200).send(cachedResponse);
     } else {
-      cache.set(key, key, duration);
-      next();
+      const imageWidth = parseInt(width as string);
+      const imageHeight = parseInt(height as string);
+      const imageResponse = await createImgThumb(
+        image as string,
+        imageWidth as number,
+        imageHeight as number,
+        format as string
+      );
+      cache.set(key, imageResponse, duration);
+      res.status(200).send(imageResponse);
     }
   };
-
-export default cacheMiddleware;

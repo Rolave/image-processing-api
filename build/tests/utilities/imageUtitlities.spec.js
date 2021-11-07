@@ -40,11 +40,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
-var imageUtitlities_1 = __importDefault(require("../../utilities/imageUtitlities"));
+var utilities_1 = require("../../utilities");
 var imagesPath = path_1.default.join(__dirname, '../../../public/images/');
-var validImgNames = Object.values(imageUtitlities_1.default.ImgNames);
-var validImgSizes = Object.values(imageUtitlities_1.default.ImgSizes);
-var validImgFormats = Object.values(imageUtitlities_1.default.ImgFormats);
+var validImgNames = Object.values(utilities_1.ImgNames);
+var validImgSizes = Object.values(utilities_1.ImgSizes);
+var validImgFormats = Object.values(utilities_1.ImgFormats);
 var getValidImgName = validImgNames[Math.floor(Math.random() * validImgNames.length)];
 var getValidImgSize = validImgSizes[Math.floor(Math.random() * validImgSizes.length)];
 var getValidImgFormat = validImgFormats[Math.floor(Math.random() * validImgFormats.length)];
@@ -53,25 +53,25 @@ var customImgSize = 2000;
 var invalidImgFormat = 'svg';
 describe('Test if image exists', function () {
     it('should return false if image file does not exists', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var imgExists;
+        var imageExists;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, imageUtitlities_1.default.imgExists(imagesPath + invalidImgName + ".jpg")];
+                case 0: return [4 /*yield*/, (0, utilities_1.imgExists)(imagesPath + invalidImgName + ".jpg")];
                 case 1:
-                    imgExists = _a.sent();
-                    expect(imgExists).toBeFalse();
+                    imageExists = _a.sent();
+                    expect(imageExists).toBeFalse();
                     return [2 /*return*/];
             }
         });
     }); });
     it('should return true if image file exists', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var imgExists;
+        var imageExists;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, imageUtitlities_1.default.imgExists(imagesPath + getValidImgName + ".jpg")];
+                case 0: return [4 /*yield*/, (0, utilities_1.imgExists)(imagesPath + getValidImgName + ".jpg")];
                 case 1:
-                    imgExists = _a.sent();
-                    expect(imgExists).toBeTrue();
+                    imageExists = _a.sent();
+                    expect(imageExists).toBeTrue();
                     return [2 /*return*/];
             }
         });
@@ -79,61 +79,61 @@ describe('Test if image exists', function () {
 });
 describe('Test if image has a valid name', function () {
     it('should return false if image name is not valid', function () {
-        var imgName = imageUtitlities_1.default.isImgValidName(invalidImgName);
+        var imgName = (0, utilities_1.isImgValidName)(invalidImgName);
         expect(imgName).toBeFalse();
     });
     it('should return true if image name is valid', function () {
-        var imgName = imageUtitlities_1.default.isImgValidName(getValidImgName);
+        var imgName = (0, utilities_1.isImgValidName)(getValidImgName);
         expect(imgName).toBeTrue();
     });
 });
 describe('Test if image is full size', function () {
     it('should return false if width is not fullsize', function () {
-        var imgIsFullSize = imageUtitlities_1.default.isImgFullSize(parseInt(imageUtitlities_1.default.ImgSizes.EXTRA_LARGE), parseInt(imageUtitlities_1.default.ImgSizes.FULL_HEIGHT));
+        var imgIsFullSize = (0, utilities_1.isImgFullSize)(parseInt(utilities_1.ImgSizes.EXTRA_LARGE), parseInt(utilities_1.ImgSizes.FULL_HEIGHT));
         expect(imgIsFullSize).toBeFalse();
     });
     it('should return false if height is not fullsize', function () {
-        var imgIsFullSize = imageUtitlities_1.default.isImgFullSize(parseInt(imageUtitlities_1.default.ImgSizes.FULL_WIDTH), parseInt(imageUtitlities_1.default.ImgSizes.EXTRA_LARGE));
+        var imgIsFullSize = (0, utilities_1.isImgFullSize)(parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.EXTRA_LARGE));
         expect(imgIsFullSize).toBeFalse();
     });
     it('should return true if width and height are fullsize', function () {
-        var imgIsFullSize = imageUtitlities_1.default.isImgFullSize(parseInt(imageUtitlities_1.default.ImgSizes.FULL_WIDTH), parseInt(imageUtitlities_1.default.ImgSizes.FULL_HEIGHT));
+        var imgIsFullSize = (0, utilities_1.isImgFullSize)(parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT));
         expect(imgIsFullSize).toBeTrue();
     });
 });
 describe('Test image format extension', function () {
     it("should return 'jpg' when is an invalid format extension", function () {
-        var imgFormat = imageUtitlities_1.default.getImgFormat(invalidImgFormat);
+        var imgFormat = (0, utilities_1.getImgFormat)(invalidImgFormat);
         expect(imgFormat).toBe('jpg');
     });
     it("should return 'png' when is a 'png' format extension", function () {
-        var imgFormat = imageUtitlities_1.default.getImgFormat('png');
+        var imgFormat = (0, utilities_1.getImgFormat)('png');
         expect(imgFormat).toBe('png');
     });
     it("should return 'jpg' when is a 'jpg' format extension", function () {
-        var imgFormat = imageUtitlities_1.default.getImgFormat('png');
+        var imgFormat = (0, utilities_1.getImgFormat)('png');
         expect(imgFormat).toBe('png');
     });
 });
 describe('Test image file name', function () {
     var validImgName = validImgNames[0];
-    var fullSizeImgName = validImgName + "." + imageUtitlities_1.default.ImgFormats.JPG;
-    var imgName = validImgName + "-" + imageUtitlities_1.default.ImgSizes.LARGE + "-" + imageUtitlities_1.default.ImgSizes.LARGE + "." + imageUtitlities_1.default.ImgFormats.JPG;
-    var customSizeImgName = validImgName + "-" + customImgSize + "-" + customImgSize + "." + imageUtitlities_1.default.ImgFormats.JPG;
+    var fullSizeImgName = validImgName + "." + utilities_1.ImgFormats.JPG;
+    var imgName = validImgName + "-" + utilities_1.ImgSizes.LARGE + "-" + utilities_1.ImgSizes.LARGE + "." + utilities_1.ImgFormats.JPG;
+    var customSizeImgName = validImgName + "-" + customImgSize + "-" + customImgSize + "." + utilities_1.ImgFormats.JPG;
     it('should return default image file name with an invalid name and extension', function () {
-        var imgFileName = imageUtitlities_1.default.getImgFileName(invalidImgName, parseInt(imageUtitlities_1.default.ImgSizes.LARGE), parseInt(imageUtitlities_1.default.ImgSizes.LARGE), invalidImgFormat);
+        var imgFileName = (0, utilities_1.getImgFileName)(invalidImgName, parseInt(utilities_1.ImgSizes.LARGE), parseInt(utilities_1.ImgSizes.LARGE), invalidImgFormat);
         expect(imgFileName).toBe(imgName);
     });
     it('should return custom size image file name with a valid name and extension', function () {
-        var imgFileName = imageUtitlities_1.default.getImgFileName(validImgName, customImgSize, customImgSize, imageUtitlities_1.default.ImgFormats.JPG);
+        var imgFileName = (0, utilities_1.getImgFileName)(validImgName, customImgSize, customImgSize, utilities_1.ImgFormats.JPG);
         expect(imgFileName).toBe(customSizeImgName);
     });
     it('should return full size image file name with a valid name and extension', function () {
-        var imgFileName = imageUtitlities_1.default.getImgFileName(validImgName, parseInt(imageUtitlities_1.default.ImgSizes.FULL_WIDTH), parseInt(imageUtitlities_1.default.ImgSizes.FULL_HEIGHT), imageUtitlities_1.default.ImgFormats.JPG);
+        var imgFileName = (0, utilities_1.getImgFileName)(validImgName, parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT), utilities_1.ImgFormats.JPG);
         expect(imgFileName).toBe(fullSizeImgName);
     });
     it('should return valid size image file name with a valid name and extension', function () {
-        var imgFileName = imageUtitlities_1.default.getImgFileName(validImgName, parseInt(imageUtitlities_1.default.ImgSizes.LARGE), parseInt(imageUtitlities_1.default.ImgSizes.LARGE), imageUtitlities_1.default.ImgFormats.JPG);
+        var imgFileName = (0, utilities_1.getImgFileName)(validImgName, parseInt(utilities_1.ImgSizes.LARGE), parseInt(utilities_1.ImgSizes.LARGE), utilities_1.ImgFormats.JPG);
         expect(imgFileName).toBe(imgName);
     });
 });
@@ -142,7 +142,7 @@ describe('Test thumbnail image create', function () {
         var imgPath, imgPathExpected;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, imageUtitlities_1.default.createImgThumb(invalidImgName, parseInt(imageUtitlities_1.default.ImgSizes.FULL_WIDTH), parseInt(imageUtitlities_1.default.ImgSizes.FULL_HEIGHT), imageUtitlities_1.default.ImgFormats.JPG)];
+                case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(invalidImgName, parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
                     imgPathExpected = validImgNames[0] + "." + validImgFormats[0];
@@ -155,7 +155,7 @@ describe('Test thumbnail image create', function () {
         var imgPath, imgPathExpected;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, imageUtitlities_1.default.createImgThumb(imageUtitlities_1.default.ImgNames.TEST, parseInt(imageUtitlities_1.default.ImgSizes.FULL_WIDTH), parseInt(imageUtitlities_1.default.ImgSizes.FULL_HEIGHT), imageUtitlities_1.default.ImgFormats.JPG)];
+                case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(utilities_1.ImgNames.TEST, parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
                     imgPathExpected = validImgNames[5] + "." + validImgFormats[0];
@@ -168,10 +168,10 @@ describe('Test thumbnail image create', function () {
         var imgPath, imgPathExpected;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, imageUtitlities_1.default.createImgThumb(imageUtitlities_1.default.ImgNames.TEST, parseInt(imageUtitlities_1.default.ImgSizes.LARGE), parseInt(imageUtitlities_1.default.ImgSizes.LARGE), imageUtitlities_1.default.ImgFormats.JPG)];
+                case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(utilities_1.ImgNames.TEST, parseInt(utilities_1.ImgSizes.LARGE), parseInt(utilities_1.ImgSizes.LARGE), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
-                    imgPathExpected = validImgNames[5] + "-" + imageUtitlities_1.default.ImgSizes.LARGE + "-" + imageUtitlities_1.default.ImgSizes.LARGE + "." + validImgFormats[0];
+                    imgPathExpected = validImgNames[5] + "-" + utilities_1.ImgSizes.LARGE + "-" + utilities_1.ImgSizes.LARGE + "." + validImgFormats[0];
                     expect(imgPath).toBe(imgPathExpected);
                     return [2 /*return*/];
             }
