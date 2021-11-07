@@ -88,6 +88,7 @@ var imgExists = function (imgPath) { return __awaiter(void 0, void 0, void 0, fu
 }); };
 exports.imgExists = imgExists;
 var isImgValidName = function (name) {
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     return Object.values(ImgNames).includes(name);
 };
 exports.isImgValidName = isImgValidName;
@@ -141,3 +142,4 @@ var createImgThumb = function (name, width, height, format) { return __awaiter(v
     });
 }); };
 exports.createImgThumb = createImgThumb;
+//# sourceMappingURL=imageUtitlities.js.map

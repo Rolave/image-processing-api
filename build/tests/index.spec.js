@@ -56,3 +56,4 @@ describe('Test api endpoint responses', function () {
         });
     }); });
 });
+//# sourceMappingURL=index.spec.js.map

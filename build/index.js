@@ -7,5 +7,7 @@ var app_1 = __importDefault(require("./app"));
 var chalk_1 = __importDefault(require("chalk"));
 var port = process.env.port || 3000;
 app_1.default.listen(port, function () {
+    /* eslint-disable-next-line no-console */
     console.log("App listening at " + chalk_1.default.green('http://localhost:' + port));
 });
+//# sourceMappingURL=index.js.map

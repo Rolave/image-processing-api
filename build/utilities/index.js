@@ -13,3 +13,4 @@ Object.defineProperty(exports, "isImgFullSize", { enumerable: true, get: functio
 Object.defineProperty(exports, "getImgFormat", { enumerable: true, get: function () { return imageUtitlities_1.getImgFormat; } });
 Object.defineProperty(exports, "getImgFileName", { enumerable: true, get: function () { return imageUtitlities_1.getImgFileName; } });
 Object.defineProperty(exports, "createImgThumb", { enumerable: true, get: function () { return imageUtitlities_1.createImgThumb; } });
+//# sourceMappingURL=index.js.map

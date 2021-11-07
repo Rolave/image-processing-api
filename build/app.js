@@ -14,10 +14,11 @@ app.set('view engine', 'ejs');
 app.set('views', viewsPath);
 app.use(express_1.default.static(publicDirPath));
 app.use('', index_1.default);
-app.use(function (req, res) {
+app.use(function (_req, res) {
     res.status(404).render('404', {
         title: 'Error 404',
         description: 'The content you where looking for does not exist.',
     });
 });
 exports.default = app;
+//# sourceMappingURL=app.js.map

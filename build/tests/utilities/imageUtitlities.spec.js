@@ -43,11 +43,8 @@ var path_1 = __importDefault(require("path"));
 var utilities_1 = require("../../utilities");
 var imagesPath = path_1.default.join(__dirname, '../../../public/images/');
 var validImgNames = Object.values(utilities_1.ImgNames);
-var validImgSizes = Object.values(utilities_1.ImgSizes);
 var validImgFormats = Object.values(utilities_1.ImgFormats);
 var getValidImgName = validImgNames[Math.floor(Math.random() * validImgNames.length)];
-var getValidImgSize = validImgSizes[Math.floor(Math.random() * validImgSizes.length)];
-var getValidImgFormat = validImgFormats[Math.floor(Math.random() * validImgFormats.length)];
 var invalidImgName = 'valparaiso';
 var customImgSize = 2000;
 var invalidImgFormat = 'svg';
@@ -145,8 +142,11 @@ describe('Test thumbnail image create', function () {
                 case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(invalidImgName, parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
-                    imgPathExpected = validImgNames[0] + "." + validImgFormats[0];
-                    expect(imgPath).toBe(imgPathExpected);
+                    imgPathExpected = {
+                        result: validImgNames[0] + "." + validImgFormats[0],
+                    };
+                    /* eslint-disable @typescript-eslint/no-explicit-any */
+                    expect(imgPath).toEqual(imgPathExpected);
                     return [2 /*return*/];
             }
         });
@@ -158,8 +158,10 @@ describe('Test thumbnail image create', function () {
                 case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(utilities_1.ImgNames.TEST, parseInt(utilities_1.ImgSizes.FULL_WIDTH), parseInt(utilities_1.ImgSizes.FULL_HEIGHT), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
-                    imgPathExpected = validImgNames[5] + "." + validImgFormats[0];
-                    expect(imgPath).toBe(imgPathExpected);
+                    imgPathExpected = {
+                        result: validImgNames[5] + "." + validImgFormats[0],
+                    };
+                    expect(imgPath).toEqual(imgPathExpected);
                     return [2 /*return*/];
             }
         });
@@ -171,10 +173,13 @@ describe('Test thumbnail image create', function () {
                 case 0: return [4 /*yield*/, (0, utilities_1.createImgThumb)(utilities_1.ImgNames.TEST, parseInt(utilities_1.ImgSizes.LARGE), parseInt(utilities_1.ImgSizes.LARGE), utilities_1.ImgFormats.JPG)];
                 case 1:
                     imgPath = _a.sent();
-                    imgPathExpected = validImgNames[5] + "-" + utilities_1.ImgSizes.LARGE + "-" + utilities_1.ImgSizes.LARGE + "." + validImgFormats[0];
-                    expect(imgPath).toBe(imgPathExpected);
+                    imgPathExpected = {
+                        result: validImgNames[5] + "-" + utilities_1.ImgSizes.LARGE + "-" + utilities_1.ImgSizes.LARGE + "." + validImgFormats[0],
+                    };
+                    expect(imgPath).toEqual(imgPathExpected);
                     return [2 /*return*/];
             }
         });
     }); });
 });
+//# sourceMappingURL=imageUtitlities.spec.js.map
