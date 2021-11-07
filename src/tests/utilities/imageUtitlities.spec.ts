@@ -156,9 +156,11 @@ describe('Test thumbnail image create', () => {
       parseInt(ImgSizes.FULL_HEIGHT),
       ImgFormats.JPG
     );
-    const imgPathExpected = `${validImgNames[0]}.${validImgFormats[0]}`;
+    const imgPathExpected = {
+      result: `${validImgNames[0]}.${validImgFormats[0]}`,
+    };
 
-    expect(imgPath).toBe(imgPathExpected as any);
+    expect(imgPath).toEqual(imgPathExpected as any);
   });
 
   it('should return full size image path when width and height values are full size', async () => {
@@ -168,9 +170,11 @@ describe('Test thumbnail image create', () => {
       parseInt(ImgSizes.FULL_HEIGHT),
       ImgFormats.JPG
     );
-    const imgPathExpected = `${validImgNames[5]}.${validImgFormats[0]}`;
+    const imgPathExpected = {
+      result: `${validImgNames[5]}.${validImgFormats[0]}`,
+    };
 
-    expect(imgPath).toBe(imgPathExpected as any);
+    expect(imgPath).toEqual(imgPathExpected as any);
   });
 
   it('should return image path when width and height values are not full size', async () => {
@@ -180,8 +184,10 @@ describe('Test thumbnail image create', () => {
       parseInt(ImgSizes.LARGE),
       ImgFormats.JPG
     );
-    const imgPathExpected = `${validImgNames[5]}-${ImgSizes.LARGE}-${ImgSizes.LARGE}.${validImgFormats[0]}`;
+    const imgPathExpected = {
+      result: `${validImgNames[5]}-${ImgSizes.LARGE}-${ImgSizes.LARGE}.${validImgFormats[0]}`,
+    };
 
-    expect(imgPath).toBe(imgPathExpected as any);
+    expect(imgPath).toEqual(imgPathExpected as any);
   });
 });
